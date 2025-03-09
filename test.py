@@ -1,4 +1,4 @@
-import ROOT
+import root
 
 df = ROOT.RDataFrame("TupleOmegac2OmegaPiPiPi_DDL/DecayTree", "../00229334_00000001_1.hyperons.root")
 
