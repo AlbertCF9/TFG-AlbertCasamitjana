@@ -1,7 +1,8 @@
 import pandas
-import ROOT
-print("hola")
-df = ROOT.RDataFrame("TupleOmegac2OmegaPiPiPi_DDL/DecayTree", "../00229334_00000001_1.hyperons.root")
+import pyroot
+
+
+df = pyroot.RDataFrame("TupleOmegac2OmegaPiPiPi_DDL/DecayTree", "../00229334_00000001_1.hyperons.root")
 
 
 pd_df = pandas.DataFrame(df.AsNumpy())#(columns=["Omegac_M"]))
