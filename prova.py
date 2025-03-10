@@ -1,11 +1,11 @@
 import pandas
-import pyroot
+import ROOT
 
 
-df = pyroot.RDataFrame("TupleOmegac2OmegaPiPiPi_DDL/DecayTree", "../00229334_00000001_1.hyperons.root")
+df = ROOT.RDataFrame("TupleOmegac2OmegaPiPiPi_DDL/DecayTree", "../00229334_00000001_1.hyperons.root")
 
 
-pd_df = pandas.DataFrame(df.AsNumpy())#(columns=["Omegac_M"]))
+thpd_df = pandas.DataFrame(df.AsNumpy())#(columns=["Omegac_M"]))
 
 import matplotlib.pyplot as plt
 print(pd_df.keys())
