@@ -26,8 +26,6 @@ for i in ["LLL","DDL","DDD"]:
     #Read the data file
     data = R.TChain("ch_data")
 
-    #data.Reset()
-
     data.Add(f"test_{i}.root/{tree}")
 
     print(data.GetEntries())
