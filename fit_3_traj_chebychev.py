@@ -35,7 +35,7 @@ for i in ["LLL","DDL","DDD"]:
 
     # Define the signal model pdf
     mean = R.RooRealVar("#mu", "mean", 1670, 1660, 1680)
-    sigma = R.RooRealVar("#sigma", "sigma", 1, 0.1, 30)
+    sigma = R.RooRealVar("#sigma", "sigma", 1, 0.1, 5)
     Gaussian = R.RooGaussian('Gaussian', 'Gaussian', x_range, mean, sigma)
 
     # Define the background model pdf
@@ -78,6 +78,6 @@ for i in ["LLL","DDL","DDD"]:
     legend.AddEntry("Background", "Background Fit", "l")  # Add signal legend entry
     legend.Draw()  # Draw the legend on the canvas
 
-    c.SaveAs(f"fit_chebychev_{i}.pdf")
+    c.SaveAs(f"fit_Chebychev_{i}.pdf")
 
     #Collapse
