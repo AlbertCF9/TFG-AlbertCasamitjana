@@ -7,7 +7,7 @@ R.RooMsgService.instance().setSilentMode(R.kTRUE)
 
 R.gROOT.ProcessLine(".x lhcbStyle.C")
 
-for i in ["LLL","DDL","DDD"]:
+for i in ["LLL","DDL"]:#falta DDD
 
     tree = f"TupleOmegac2OmegaPiPiPi_{i}/DecayTree"
     root_file = f"filtered_omegac_{i}.root"
@@ -19,8 +19,8 @@ for i in ["LLL","DDL","DDD"]:
     df.Snapshot(tree, f"test_{i}.root", ["Omegac_M"])
 
     #Define the range
-    x_lower = 2600 
-    x_upper = 2800 
+    x_lower = 2600
+    x_upper = 2800
     x_range = R.RooRealVar("Omegac_M", "Omegac_M", x_lower, x_upper)
 
     #Read the data file

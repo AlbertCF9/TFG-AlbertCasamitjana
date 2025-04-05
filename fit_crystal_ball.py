@@ -7,7 +7,7 @@ R.RooMsgService.instance().setSilentMode(R.kTRUE)
 
 R.gROOT.ProcessLine(".x lhcbStyle.C")
 
-for i in ["LLL","DDL","DDD"]:
+for i in ["DDD"]: #falta lll i ddl
 
     tree = f"TupleOmegac2OmegaPiPiPi_{i}/DecayTree"
     root_file = "../00229334_00000001_1.hyperons.root"
@@ -35,7 +35,7 @@ for i in ["LLL","DDL","DDD"]:
 
     # Define the signal model pdf
     mean = R.RooRealVar("#mu", "mean", 1670, 1660, 1680)
-    sigma = R.RooRealVar("#sigma", "sigma", 1, 0.1, 3.5)
+    sigma = R.RooRealVar("#sigma", "sigma", 1, 0.1, 5)
     alphaL = R.RooRealVar("alphaL", "alphaL", 1, 0, 20)
     nL = R.RooRealVar("nL", "nL", 1, 0, 20)
     alphaR = R.RooRealVar("alphaR", "alphaR", 1, 0, 20)
@@ -45,12 +45,14 @@ for i in ["LLL","DDL","DDD"]:
         #Gaussian = R.RooGaussian('Gaussian', 'Gaussian', x_range, mean, sigma)
 
     # Define the background model pdf
-    coef1 = R.RooRealVar("coef1", "coef1", 0, -1, 1)  
-    coef2 = R.RooRealVar("coef2","coef2",0,-1,1)
+    c = R.RooRealVar("c", "c", 0, -1, 1) 
+    coef1= 0.26711
+    coef2 =  -0.07131
+    #coef2 = R.RooRealVar("coef2","coef2",0,-1,1)
     if i == "DDD" :
         Chebychev = R.RooChebychev("Chebychev","Chebychev",x_range,R.RooArgList(coef1,coef2))
     else:
-        Chebychev = R.RooChebychev("Chebychev","Chebychev",x_range,coef1)
+        Chebychev = R.RooChebychev("Chebychev","Chebychev",x_range,c)
 
     # Build composite pdf
     sig_yield = R.RooRealVar("N_{sig}", "Signal yield", entries_data*0.2, 0, 1.2*entries_data)
