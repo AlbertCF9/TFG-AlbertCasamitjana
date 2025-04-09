@@ -64,7 +64,7 @@ for i in ["LLL","DDL","DDD"]:
     model.plotOn(xframe, R.RooFit.Components("Gaussian"), R.RooFit.LineColor(R.kGreen), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Signal"))
     # Plot the Chebychev with proper scaling
     model.plotOn(xframe, R.RooFit.Components("Chebychev"), R.RooFit.LineColor(R.kRed), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Background"))
-    model.paramOn(xframe, R.RooFit.Layout(0.65, 0.75, 0.6))
+    model.paramOn(xframe, R.RooFit.Layout(0.8, 0.99, 0.9))
 
     xframe.GetXaxis().SetTitle("#it{m}(" + '#Omega_c'+"[MeV/#it{c}^{2}]")
 
