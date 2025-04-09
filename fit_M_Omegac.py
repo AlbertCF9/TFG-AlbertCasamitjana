@@ -7,7 +7,7 @@ R.RooMsgService.instance().setSilentMode(R.kTRUE)
 
 R.gROOT.ProcessLine(".x lhcbStyle.C")
 
-for i in ["LLL","DDL"]:#falta DDD
+for i in ["LLL","DDL","DDD"]:
 
     tree = f"TupleOmegac2OmegaPiPiPi_{i}/DecayTree"
     root_file = f"filtered_omegac_{i}.root"
@@ -19,8 +19,8 @@ for i in ["LLL","DDL"]:#falta DDD
     df.Snapshot(tree, f"test_{i}.root", ["Omegac_M"])
 
     #Define the range
-    x_lower = 2600
-    x_upper = 2800
+    x_lower = 2640
+    x_upper = 2750
     x_range = R.RooRealVar("Omegac_M", "Omegac_M", x_lower, x_upper)
 
     #Read the data file
@@ -34,28 +34,26 @@ for i in ["LLL","DDL"]:#falta DDD
     entries_data = RDS_data.sumEntries()
 
     # Define the signal model pdf
-    mean = R.RooRealVar("#mu", "mean", 2670, 2660, 2680)
-    sigma = R.RooRealVar("#sigma", "sigma", 1, 0.1, 3.5)
-    alphaL = R.RooRealVar("alphaL", "alphaL", 1, 0, 20)
-    nL = R.RooRealVar("nL", "nL", 1, 0, 20)
-    alphaR = R.RooRealVar("alphaR", "alphaR", 1, 0, 20)
-    nR = R.RooRealVar("nR", "nR", 1, 0, 20)
+    mean = R.RooRealVar("#mu", "mean", 2695, 2685, 2705)
+    sigma = R.RooRealVar("#sigma", "sigma", 1, 0, 3.5)
+    #alphaL = R.RooRealVar("alphaL", "alphaL", 1, 0, 20)
+    #nL = R.RooRealVar("nL", "nL", 1, 0, 20)
+    #alphaR = R.RooRealVar("alphaR", "alphaR", 1, 0, 20)
+    #nR = R.RooRealVar("nR", "nR", 1, 0, 20)
 
-    CrystalBall = R.RooCrystalBall ("CrystalBall","CrystalBall",x_range,mean,sigma,alphaL,nL,alphaR,nR)
-        #Gaussian = R.RooGaussian('Gaussian', 'Gaussian', x_range, mean, sigma)
+    #CrystalBall = R.RooCrystalBall ("CrystalBall","CrystalBall",x_range,mean,sigma,alphaL,nL,alphaR,nR)
+    Gaussian = R.RooGaussian('Gaussian', 'Gaussian', x_range, mean, sigma)
 
     # Define the background model pdf
     coef1 = R.RooRealVar("coef1", "coef1", 0, -1, 1)  
     coef2 = R.RooRealVar("coef2","coef2",0,-1,1)
-    if i == "DDD" :
-        Chebychev = R.RooChebychev("Chebychev","Chebychev",x_range,R.RooArgList(coef1,coef2))
-    else:
-        Chebychev = R.RooChebychev("Chebychev","Chebychev",x_range,coef1)
-
-    # Build composite pdf
+    
+    Chebychev = R.RooChebychev("Chebychev","Chebychev",x_range,R.RooArgList(coef1,coef2))
+    
+        # Build composite pdf
     sig_yield = R.RooRealVar("N_{sig}", "Signal yield", entries_data*0.2, 0, 1.2*entries_data)
     bkg_yield = R.RooRealVar("N_{bkg}", "Background yield", entries_data*0.8, 0, 1.2*entries_data)
-    model = R.RooAddPdf("model", "model", R.RooArgList(CrystalBall, Chebychev), R.RooArgList(sig_yield, bkg_yield))
+    model = R.RooAddPdf("model", "model", R.RooArgList(Gaussian, Chebychev), R.RooArgList(sig_yield, bkg_yield))
 
     #make the fit
     results = model.fitTo(RDS_data, R.RooFit.Save(True))
@@ -63,7 +61,7 @@ for i in ["LLL","DDL"]:#falta DDD
 
     RDS_data.plotOn(xframe, R.RooFit.Name("Data"))  # Plot the data points
     model.plotOn(xframe, R.RooFit.LineColor(R.kBlue), R.RooFit.Name("PDF"))  # Plot the fit model
-    model.plotOn(xframe, R.RooFit.Components("CrystalBall"), R.RooFit.LineColor(R.kGreen), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Signal"))
+    model.plotOn(xframe, R.RooFit.Components("Gaussian"), R.RooFit.LineColor(R.kGreen), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Signal"))
     # Plot the Chebychev with proper scaling
     model.plotOn(xframe, R.RooFit.Components("Chebychev"), R.RooFit.LineColor(R.kRed), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Background"))
     model.paramOn(xframe, R.RooFit.Layout(0.65, 0.75, 0.6))

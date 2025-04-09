@@ -36,19 +36,30 @@ for i in ["DDD"]: #falta lll i ddl
     # Define the signal model pdf
     mean = R.RooRealVar("#mu", "mean", 1670, 1660, 1680)
     sigma = R.RooRealVar("#sigma", "sigma", 1, 0.1, 5)
-    alphaL = R.RooRealVar("alphaL", "alphaL", 1, 0, 20)
-    nL = R.RooRealVar("nL", "nL", 1, 0, 20)
-    alphaR = R.RooRealVar("alphaR", "alphaR", 1, 0, 20)
-    nR = R.RooRealVar("nR", "nR", 1, 0, 20)
+
+    #nL = R.RooRealVar("nL", "nL", 5, 1.6, 10)
+    nL = R.RooRealVar("nL", "nL", 2, 1,10)
+    nR = R.RooRealVar("nR", "nR", 2, 1, 10)
+
+    #alphaL = R.RooRealVar("alphaL", "alphaL", 3, 2.5, 5)
+    alphaL = R.RooRealVar("alphaL", "alphaL", 2, 1, 10)
+    alphaR = R.RooRealVar("alphaR", "alphaR",2, 1, 10)
+    
 
     CrystalBall = R.RooCrystalBall ("CrystalBall","CrystalBall",x_range,mean,sigma,alphaL,nL,alphaR,nR)
         #Gaussian = R.RooGaussian('Gaussian', 'Gaussian', x_range, mean, sigma)
 
     # Define the background model pdf
     c = R.RooRealVar("c", "c", 0, -1, 1) 
-    coef1= 0.26711
-    coef2 =  -0.07131
-    #coef2 = R.RooRealVar("coef2","coef2",0,-1,1)
+    
+    coef1 = R.RooRealVar("coef1", "coef1", 0.27)
+    coef1.setConstant(True)
+    coef2 = R.RooRealVar("coef2", "coef2", -0.07131)
+    coef2.setConstant(True)
+    
+    #coef1 = R.RooRealVar("coef1", "coef1", 0.25, 0, 1)
+    #coef2 = R.RooRealVar("coef2", "coef2", 0, -1, 0.1)
+    
     if i == "DDD" :
         Chebychev = R.RooChebychev("Chebychev","Chebychev",x_range,R.RooArgList(coef1,coef2))
     else:
