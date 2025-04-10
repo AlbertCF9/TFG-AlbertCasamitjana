@@ -19,8 +19,8 @@ for i in ["LLL","DDL","DDD"]:
     df.Snapshot(tree, f"test_{i}.root", ["Omegac_M"])
 
     #Define the range
-    x_lower = 2640
-    x_upper = 2750
+    x_lower = 2650
+    x_upper = 2740
     x_range = R.RooRealVar("Omegac_M", "Omegac_M", x_lower, x_upper)
 
     #Read the data file
@@ -56,17 +56,20 @@ for i in ["LLL","DDL","DDD"]:
     model = R.RooAddPdf("model", "model", R.RooArgList(Gaussian, Chebychev), R.RooArgList(sig_yield, bkg_yield))
 
     #make the fit
+    number_of_bins = 40
     results = model.fitTo(RDS_data, R.RooFit.Save(True))
     xframe = x_range.frame(R.RooFit.Title(f"Fit Result"))
+    custom_binning = R.RooBinning(number_of_bins, x_lower, x_upper)
 
-    RDS_data.plotOn(xframe, R.RooFit.Name("Data"))  # Plot the data points
+
+    RDS_data.plotOn(xframe, R.RooFit.Name("Data"),R.RooFit.Binning(custom_binning))  # Plot the data points
     model.plotOn(xframe, R.RooFit.LineColor(R.kBlue), R.RooFit.Name("PDF"))  # Plot the fit model
     model.plotOn(xframe, R.RooFit.Components("Gaussian"), R.RooFit.LineColor(R.kGreen), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Signal"))
     # Plot the Chebychev with proper scaling
     model.plotOn(xframe, R.RooFit.Components("Chebychev"), R.RooFit.LineColor(R.kRed), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Background"))
     model.paramOn(xframe, R.RooFit.Layout(0.8, 0.99, 0.9))
 
-    xframe.GetXaxis().SetTitle("#it{m}(" + '#Omega_c'+"[MeV/#it{c}^{2}]")
+    xframe.GetXaxis().SetTitle("#it{m}(" + '#Omegac'+"[MeV/#it{c}^{2}]")
 
     bin_width = (x_upper-x_lower)/100
     xframe.GetYaxis().SetTitle(f"Candidates/({bin_width}MeV/c^{2})")
