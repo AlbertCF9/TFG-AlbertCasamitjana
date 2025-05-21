@@ -72,7 +72,7 @@ model.plotOn(xframe, R.RooFit.Components("Gaussian"), R.RooFit.LineColor(R.kGree
 model.plotOn(xframe, R.RooFit.Components("Chebychev"), R.RooFit.LineColor(R.kRed), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Background"))
 model.paramOn(xframe, R.RooFit.Layout(0.68, 0.9, 0.55))
 
-xframe.GetXaxis().SetTitle("#it{m}(" + '#Omega^{-} #pi^{-} #pi^{+} #pi^{+})'+"[MeV/#it{c}^{2}]")
+xframe.GetXaxis().SetTitle("#it{m}(" + '#Omega^{-} #pi^{+} #pi^{-} #pi^{+})'+"[MeV/#it{c}^{2}]")
 
 bin_width = (x_upper-x_lower)/100
 xframe.GetYaxis().SetTitle(f"Candidates/({bin_width}MeV/"+"#it{c}^{2})")
