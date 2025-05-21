@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+/cvmfs/lhcb.cern.ch/lib/var/lib/LbEnv/3461/stable/linux-64/bin/python3.12 -m lb_telemetry send -t lbconda2 --tags conda_subdir env_name env_version latest with_texlive --include-host-info '{"conda_subdir": "linux-64", "env_name": "default", "env_version": "2024-06-23", "latest": false, "with_texlive": false, "env_type": "virtual-env", "dev_id": "a8799720-d3ad-4209-8478-a4a1084cd8a4"}' || true
+exec /cvmfs/lhcb.cern.ch/lib/var/lib/LbEnv/3461/stable/linux-64/bin/lb-conda-dev --with-venv /home/acasamitjana/TFG-AlbertCasamitjana/venv_Lb2ppimumu/bin/activate --execute /cvmfs/lhcbdev.cern.ch/conda/envs/default/2024-06-23_07-50/linux-64 "$@"
