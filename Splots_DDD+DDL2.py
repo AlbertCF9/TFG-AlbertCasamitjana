@@ -24,7 +24,7 @@ plt.hist(mass_1,weights=pd_df["sweight_signal"], bins=30)
 plt.title(f"Splot M(O-,pi1,pi-)_DDD+DDL",fontsize=14)
 plt.xlabel("M (Omega- Pi1, Pi-) (MeV/$c^2$)")
 plt.ylabel("Esdeveniments")
-plt.savefig(f"splot_omega_pi1_pi-_DDD+DDL.pdf")
+plt.savefig(f"splot_omega_pi1_pi-_DDD+DDL.png")
 plt.clf()
 
 # Segon grafic
@@ -46,5 +46,17 @@ plt.hist(mass_2,weights=pd_df["sweight_signal"], bins=30)
 plt.title(f"Splot M(O-,pi2,pi-)_DDD+DDL",fontsize=14)
 plt.xlabel("M (Omega- Pi2, Pi-) (MeV/$c^2$)")
 plt.ylabel("Esdeveniments")
-plt.savefig(f"splot_omega_pi2_pi-_DDD+DDL.pdf")
+plt.savefig(f"splot_omega_pi2_pi-_DDD+DDL.png")
+plt.clf()
+
+
+combined_masses = np.concatenate((mass_1, mass_2))
+combined_weights = np.concatenate((pd_df["sweight_signal"], pd_df["sweight_signal"]))
+
+# Fer l’histograma
+plt.hist(combined_masses, weights=combined_weights, bins=30)
+plt.title("Splot M(O-, pi1/pi2, pi-) DDD+DDL", fontsize=14)
+plt.xlabel("M (Omega- pi, pi-) (MeV/$c^2$)")
+plt.ylabel("Esdeveniments")
+plt.savefig("splot_omega_combined_pions_DDD+DDL.png")
 plt.clf()
