@@ -9,15 +9,21 @@ R.RooMsgService.instance().setSilentMode(R.kTRUE)
 R.gROOT.ProcessLine(".x lhcbStyle.C")
 
 
-for i in ["LLL","DDL","DDD"]:
+for i in ["DDD"]:#"LLL","DDL",
 
     tree = f"TupleOmegac2OmegaPiPiPi_{i}/DecayTree"
     root_files_MagUp_2018 = glob.glob("/home/lcalefice/hyperon_spectroscopy/tuples/Run_2_TurboLines/Omegac2OmegaPiPiPi/data/2018/MagUp/*.root")
     root_files_MagDown_2018 = glob.glob("/home/lcalefice/hyperon_spectroscopy/tuples/Run_2_TurboLines/Omegac2OmegaPiPiPi/data/2018/MagDown/*.root")
     root_files_MagUp_2017 = glob.glob("/home/lcalefice/hyperon_spectroscopy/tuples/Run_2_TurboLines/Omegac2OmegaPiPiPi/data/2017/MagUp/*.root")
     root_files_MagDown_2017 = glob.glob("/home/lcalefice/hyperon_spectroscopy/tuples/Run_2_TurboLines/Omegac2OmegaPiPiPi/data/2017/MagDown/*.root")
-
-    root_files = root_files_MagDown_2017 + root_files_MagUp_2017 + root_files_MagDown_2018 + root_files_MagUp_2018
+    root_files_MagUp_2016 = glob.glob("/home/lcalefice/hyperon_spectroscopy/tuples/Run_2_TurboLines/Omegac2OmegaPiPiPi/data/2016/MagUp/*.root")
+    root_files_MagDown_2016 = glob.glob("/home/lcalefice/hyperon_spectroscopy/tuples/Run_2_TurboLines/Omegac2OmegaPiPiPi/data/2016/MagDown/*.root")
+    
+    root_files = (
+        root_files_MagDown_2016 + root_files_MagUp_2016 +
+        root_files_MagDown_2017 + root_files_MagUp_2017 +
+        root_files_MagDown_2018 + root_files_MagUp_2018
+    )
 
     df = R.RDataFrame(tree, root_files)
 
@@ -53,4 +59,4 @@ for i in ["LLL","DDL","DDD"]:
     variables = ["Omegac_M","Omega_M"]+[f"{particle}_{component}" for particle in ["Omega","pi_Omegac_1","pi_Omegac_2","pi_mi_Omegac"] for component in ["PE","PX","PY","PZ"]]+[f"{particle}_{component}" for particle in ["pi_Omegac_1","pi_Omegac_2"] for component in ["P","PT","ETA"]]
 
 
-    filtered_df.Snapshot(f"TupleOmegac2OmegaPiPiPi_{i}/DecayTree",f"filtered_omegac_2018_2017_{i}.root",variables)
+    filtered_df.Snapshot(f"TupleOmegac2OmegaPiPiPi_{i}/DecayTree",f"filtered_omegac_2016_{i}.root",variables)
