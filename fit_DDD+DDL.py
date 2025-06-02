@@ -16,9 +16,13 @@ x_range = R.RooRealVar("Omegac_M", "Omegac_M", x_lower, x_upper)
 #Read the data file
 data = R.TChain("ch_data")
 
-for i in ["DDL","DDD"]:
+samples = {
+    "DDL": "filtered_omegac_2016_DDL.root",
+    "DDD": "filtered_omegac_2018_2017_DDD.root"
+}
+
+for i,root_file in samples.items():
     tree = f"TupleOmegac2OmegaPiPiPi_{i}/DecayTree"
-    root_file = f"filtered_omegac_2018_2017_{i}.root"
 
     df = R.RDataFrame(tree, root_file)
 
@@ -87,7 +91,7 @@ legend.AddEntry("Signal", "Signal Fit", "l")  # Add signal legend entry
 legend.AddEntry("Background", "Background Fit", "l")  # Add signal legend entry
 legend.Draw()  # Draw the legend on the canvas
 
-c.SaveAs(f"fit_Omegac_M_DDD+DDL.png")
+c.SaveAs(f"fit_Omegac_M_DDD+DDL_2016.png")
 
 #Collapse
 
@@ -113,9 +117,8 @@ variables_needed = ["Omegac_M","Omega_M","pi_Omegac_1_P","pi_Omegac_2_P"]+[f"{pa
 
 df_combined = []
 
-for i in ["DDL","DDD"]:
+for i,root_file in samples.items():
     tree = f"TupleOmegac2OmegaPiPiPi_{i}/DecayTree"
-    root_file = f"filtered_omegac_2018_2017_{i}.root"
 
     df_i = R.RDataFrame(tree, root_file)
     np_data = df_i.AsNumpy(columns=variables_needed)
