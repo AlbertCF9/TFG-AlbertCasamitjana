@@ -3,9 +3,30 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
       
+def set_mpl_LHCb_style(climb_server=False):
+    """
+    function to set the LHCb style in matplotlib and recover the orginal color palette of matplotlib
+    """
+    import mplhep
+    import matplotlib as mpl
+    mplhep.style.use("LHCb2")
+
+    mpl.rcParams['axes.prop_cycle'] = mpl.cycler(color=['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b', '#e377c2', '#7f7f7f', '#bcbd22', '#17becf'])
+
+    mpl.rcParams["figure.autolayout"] = False
+    
+    if not climb_server: #FIXME: this should be removed in the future, when LaTeX is properly installed in CLIMB
+        pgf_with_latex = {
+                "text.usetex": True,
+                "pgf.rcfonts": False,
+                "pgf.preamble": r"\usepackage{color}"
+                }
+
+        mpl.rcParams.update(pgf_with_latex)
 
 
-pd_df = pd.read_csv("sweights_omegac_DDD+DDL.csv")
+#set_mpl_LHCb_style()
+pd_df = pd.read_csv("sweights_omegac_DDD+DDL_final.csv")
 
 E_total_1 = 0
 px_total_1 = 0
@@ -19,12 +40,12 @@ for particle in ["Omega","pi_Omegac_1","pi_mi_Omegac"]:
 
 mass_1 = np.sqrt(E_total_1**2-px_total_1**2-py_total_1**2-pz_total_1**2) - pd_df["Omega_M"] + 1672.45  
 
-plt.hist(mass_1,weights=pd_df["sweight_signal"], bins=30)
+plt.hist(mass_1,weights=pd_df["sweight_signal"], bins=40)
 
 plt.title(f"Splot M(O-,pi1,pi-)_DDD+DDL",fontsize=14)
 plt.xlabel("M (Omega- Pi1, Pi-) (MeV/$c^2$)")
 plt.ylabel("Esdeveniments")
-plt.savefig(f"splot_omega_pi1_pi-_DDD+DDL.png")
+plt.savefig(f"splot_omega_pi1_pi-_DDD+DDL_final.png")
 plt.clf()
 
 # Segon grafic
@@ -41,22 +62,26 @@ for particle in ["Omega","pi_Omegac_2","pi_mi_Omegac"]:
 
 mass_2 = np.sqrt(E_total_2**2-px_total_2**2-py_total_2**2-pz_total_2**2) - pd_df["Omega_M"] + 1672.45  
 
-plt.hist(mass_2,weights=pd_df["sweight_signal"], bins=30)
+plt.hist(mass_2,weights=pd_df["sweight_signal"], bins=40)
 
 plt.title(f"Splot M(O-,pi2,pi-)_DDD+DDL",fontsize=14)
 plt.xlabel("M (Omega- Pi2, Pi-) (MeV/$c^2$)")
 plt.ylabel("Esdeveniments")
-plt.savefig(f"splot_omega_pi2_pi-_DDD+DDL.png")
+plt.savefig(f"splot_omega_pi2_pi-_DDD+DDL_final.png")
 plt.clf()
+
+"""
 
 
 combined_masses = np.concatenate((mass_1, mass_2))
 combined_weights = np.concatenate((pd_df["sweight_signal"], pd_df["sweight_signal"]))
 
-# Fer l’histograma
+#  Fer l’histograma
+
 plt.hist(combined_masses, weights=combined_weights, bins=30)
 plt.title("Splot M(O-, pi1/pi2, pi-) DDD+DDL", fontsize=14)
 plt.xlabel("M (Omega- pi, pi-) (MeV/$c^2$)")
 plt.ylabel("Esdeveniments")
 plt.savefig("splot_omega_combined_pions_DDD+DDL.png")
 plt.clf()
+"""

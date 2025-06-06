@@ -133,4 +133,4 @@ df_variables["sweight_signal"] = [sData.GetSWeight(j, sig_yield.GetName()) for j
 df_variables["sweight_background"] = [sData.GetSWeight(j, bkg_yield.GetName()) for j in range(int(entries_data))]
 
 
-df_variables.to_csv(f"sweights_omegac_DDD+DDL.csv", index=False)
+df_variables.to_csv(f"sweights_omegac_DDD+DDL_final.csv", index=False)
