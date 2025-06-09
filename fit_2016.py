@@ -8,7 +8,7 @@ R.RooMsgService.instance().setSilentMode(R.kTRUE)
 
 R.gROOT.ProcessLine(".x lhcbStyle.C")
 
-for i in ["DDL"]:
+for i in ["DDD"]:
 
     tree = f"TupleOmegac2OmegaPiPiPi_{i}/DecayTree"
     root_file = f"filtered_omegac_2016_{i}.root"

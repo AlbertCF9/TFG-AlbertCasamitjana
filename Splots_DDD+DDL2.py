@@ -41,9 +41,9 @@ for particle in ["Omega","pi_Omegac_1","pi_mi_Omegac"]:
 mass_1 = np.sqrt(E_total_1**2-px_total_1**2-py_total_1**2-pz_total_1**2) - pd_df["Omega_M"] + 1672.45  
 
 plt.hist(mass_1,weights=pd_df["sweight_signal"], bins=40)
-
+plt.xlim(2000, 2600)
 plt.xlabel(r"$m(\Omega^- \mathrm{\pi}_1^+ \mathrm{\pi}^-) - m(\Omega^-) + 1672.45 \ [\mathrm{MeV}/c^2]$")
-plt.ylabel("Candidates / [MeV/$c^2$]")
+plt.ylabel("Candidates / [10 MeV/$c^2$]")
 plt.savefig(f"splot_omega_pi1_pi-_DDD+DDL_final.png")
 plt.clf()
 
@@ -62,9 +62,9 @@ for particle in ["Omega","pi_Omegac_2","pi_mi_Omegac"]:
 mass_2 = np.sqrt(E_total_2**2-px_total_2**2-py_total_2**2-pz_total_2**2) - pd_df["Omega_M"] + 1672.45  
 
 plt.hist(mass_2,weights=pd_df["sweight_signal"], bins=40)
-
+plt.xlim(2000, 2600)
 plt.xlabel(r"$m(\Omega^- \mathrm{\pi}_2^+ \mathrm{\pi}^-) - m(\Omega^-) + 1672.45 \ [\mathrm{MeV}/c^2]$")
-plt.ylabel("Candidates / [MeV/$c^2$]")
+plt.ylabel("Candidates / [10 MeV/$c^2$]")
 plt.savefig(f"splot_omega_pi2_pi-_DDD+DDL_final.png")
 plt.clf()
 
