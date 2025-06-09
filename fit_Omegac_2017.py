@@ -8,7 +8,7 @@ R.RooMsgService.instance().setSilentMode(R.kTRUE)
 
 R.gROOT.ProcessLine(".x lhcbStyle.C")
 
-for i in ["LLL","DDL","DDD"]:
+for i in ["DDD"]:
 
     tree = f"TupleOmegac2OmegaPiPiPi_{i}/DecayTree"
     root_file = f"filtered_omegac_2018_2017_{i}.root"
@@ -68,16 +68,16 @@ for i in ["LLL","DDL","DDD"]:
     model.plotOn(xframe, R.RooFit.Components("Gaussian"), R.RooFit.LineColor(R.kGreen), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Signal"))
     # Plot the Chebychev with proper scaling
     model.plotOn(xframe, R.RooFit.Components("Chebychev"), R.RooFit.LineColor(R.kRed), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Background"))
-    model.paramOn(xframe, R.RooFit.Layout(0.8, 0.99, 0.9))
+    model.paramOn(xframe, R.RooFit.Layout(0.68, 0.9, 0.55))
 
-    xframe.GetXaxis().SetTitle("#it{m}(" + '#Omegac'+"[MeV/#it{c}^{2}]")
+    xframe.GetXaxis().SetTitle("#it{m}(" + '#Omega^{-} #pi^{+} #pi^{-} #pi^{+})'+"[MeV/#it{c}^{2}]")
 
     bin_width = (x_upper-x_lower)/100
     xframe.GetYaxis().SetTitle(f"Candidates/({bin_width}MeV/c^{2})")
 
     c = R.TCanvas("fit_canvas", "Fit Results")
     xframe.Draw()
-    legend = R.TLegend(0.1, 0.75, 0.35, 0.9) # Specify the position of the legend (x1, y1, x2, y2)
+    legend = R.TLegend(0.2, 0.65, 0.41, 0.85) # Specify the position of the legend (x1, y1, x2, y2)
     legend.SetTextSize(0.04) 
     legend.AddEntry("Data", "Data", "p")  # Add data legend entry
     legend.AddEntry("PDF", "Total Fit", "l")  # Add total fit legend entry
@@ -85,7 +85,7 @@ for i in ["LLL","DDL","DDD"]:
     legend.AddEntry("Background", "Background Fit", "l")  # Add signal legend entry
     legend.Draw()  # Draw the legend on the canvas
 
-    c.SaveAs(f"fit_Omegac_M_2017_{i}.pdf")
+    c.SaveAs(f"fit_Omegac_M_2017_{i}.png")
 
     #Collapse
 

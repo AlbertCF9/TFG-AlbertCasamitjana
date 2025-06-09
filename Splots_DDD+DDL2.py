@@ -24,7 +24,7 @@ def set_mpl_LHCb_style(climb_server=False):
 
         mpl.rcParams.update(pgf_with_latex)
 
-
+set_mpl_LHCb_style(climb_server=True)
 #set_mpl_LHCb_style()
 pd_df = pd.read_csv("sweights_omegac_DDD+DDL_final.csv")
 
@@ -42,9 +42,8 @@ mass_1 = np.sqrt(E_total_1**2-px_total_1**2-py_total_1**2-pz_total_1**2) - pd_df
 
 plt.hist(mass_1,weights=pd_df["sweight_signal"], bins=40)
 
-plt.title(f"Splot M(O-,pi1,pi-)_DDD+DDL",fontsize=14)
-plt.xlabel("M (Omega- Pi1, Pi-) (MeV/$c^2$)")
-plt.ylabel("Esdeveniments")
+plt.xlabel(r"$m(\Omega^- \mathrm{\pi}_1^+ \mathrm{\pi}^-) - m(\Omega^-) + 1672.45 \ [\mathrm{MeV}/c^2]$")
+plt.ylabel("Candidates / [MeV/$c^2$]")
 plt.savefig(f"splot_omega_pi1_pi-_DDD+DDL_final.png")
 plt.clf()
 
@@ -64,13 +63,12 @@ mass_2 = np.sqrt(E_total_2**2-px_total_2**2-py_total_2**2-pz_total_2**2) - pd_df
 
 plt.hist(mass_2,weights=pd_df["sweight_signal"], bins=40)
 
-plt.title(f"Splot M(O-,pi2,pi-)_DDD+DDL",fontsize=14)
-plt.xlabel("M (Omega- Pi2, Pi-) (MeV/$c^2$)")
-plt.ylabel("Esdeveniments")
+plt.xlabel(r"$m(\Omega^- \mathrm{\pi}_2^+ \mathrm{\pi}^-) - m(\Omega^-) + 1672.45 \ [\mathrm{MeV}/c^2]$")
+plt.ylabel("Candidates / [MeV/$c^2$]")
 plt.savefig(f"splot_omega_pi2_pi-_DDD+DDL_final.png")
 plt.clf()
 
-"""
+
 
 
 combined_masses = np.concatenate((mass_1, mass_2))
@@ -78,10 +76,8 @@ combined_weights = np.concatenate((pd_df["sweight_signal"], pd_df["sweight_signa
 
 #  Fer l’histograma
 
-plt.hist(combined_masses, weights=combined_weights, bins=30)
-plt.title("Splot M(O-, pi1/pi2, pi-) DDD+DDL", fontsize=14)
+plt.hist(combined_masses, weights=combined_weights, bins=50)
 plt.xlabel("M (Omega- pi, pi-) (MeV/$c^2$)")
 plt.ylabel("Esdeveniments")
 plt.savefig("splot_omega_combined_pions_DDD+DDL.png")
 plt.clf()
-"""

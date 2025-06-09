@@ -71,7 +71,7 @@ for i in ["DDL"]:
     model.paramOn(xframe, R.RooFit.Layout(0.68, 0.9, 0.55))
 
 
-    xframe.GetXaxis().SetTitle("#it{m}(" + '#Omegac'+"[MeV/#it{c}^{2}]")
+    xframe.GetXaxis().SetTitle("#it{m}(" + '#Omega^{-} #pi^{+} #pi^{-} #pi^{+})'+"[MeV/#it{c}^{2}]")
 
     bin_width = (x_upper-x_lower)/100
     xframe.GetYaxis().SetTitle(f"Candidates/({bin_width}MeV/c^{2})")
