@@ -54,9 +54,10 @@ for i in ["DDD"]:
     model = R.RooAddPdf("model", "model", R.RooArgList(Gaussian, Chebychev), R.RooArgList(sig_yield, bkg_yield))
 
     #make the fit
+   
     results = model.fitTo(RDS_data, R.RooFit.Save(True))
     xframe = x_range.frame(R.RooFit.Title(f"Fit Result"))
-
+ 
     RDS_data.plotOn(xframe, R.RooFit.Name("Data"))  # Plot the data points
     model.plotOn(xframe, R.RooFit.LineColor(R.kBlue), R.RooFit.Name("PDF"))  # Plot the fit model
     model.plotOn(xframe, R.RooFit.Components("Gaussian"), R.RooFit.LineColor(R.kGreen), R.RooFit.LineStyle(R.kDashed), R.RooFit.Name("Signal"))

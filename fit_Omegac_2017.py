@@ -72,7 +72,7 @@ for i in ["DDD"]:
 
     xframe.GetXaxis().SetTitle("#it{m}(" + '#Omega^{-} #pi^{+} #pi^{-} #pi^{+})'+"[MeV/#it{c}^{2}]")
 
-    bin_width = (x_upper-x_lower)/100
+    bin_width = (x_upper-x_lower)/number_of_bins
     xframe.GetYaxis().SetTitle(f"Candidates/({bin_width}MeV/c^{2})")
 
     c = R.TCanvas("fit_canvas", "Fit Results")
